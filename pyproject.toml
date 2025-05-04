@@ -5,7 +5,9 @@ description = "Investigating the S&P 500"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "yfinance"
+    "nbformat>=5.10.4",
+    "plotly>=6.0.1",
+    "yfinance",
 ]
 
 [dependency-groups]
