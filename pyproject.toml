@@ -1,0 +1,9 @@
+[project]
+name = "spx-info"
+version = "0.1.0"
+description = "Investigating the S&P 500"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "yfinance"
+]
