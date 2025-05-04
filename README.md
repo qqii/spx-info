@@ -6,11 +6,6 @@ Investigating the S&P 500.
 
 ```
 uv run sync
-uv run python
 ```
 
-## Formatting
-
-```shell
-uvx ruff check --fix && uvx ruff format
-```
+Open [`main.ipynb`](main.ipynb).
