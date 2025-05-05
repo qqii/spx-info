@@ -5,84 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SPX Info</title>
     <style>
-      /* Basic styling for the body */
       body {
-        font-family: sans-serif; /* Use a default system font */
+        font-family: sans-serif;
         display: flex;
         justify-content: center;
         align-items: center;
         min-height: 100vh;
-        background-color: #f0f0f0; /* Light gray background */
+        background-color: #f0f0f0;
         margin: 0;
-        padding: 16px; /* Add some padding */
-        box-sizing: border-box; /* Include padding in element's total width and height */
+        padding: 16px;
+        box-sizing: border-box;
       }
-      /* Container for the content */
       .container {
-        background-color: #ffffff; /* White background */
+        background-color: #ffffff;
         padding: 32px;
-        border-radius: 8px; /* Rounded corners */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Simple shadow */
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         text-align: center;
         width: 100%;
-        max-width: 448px; /* Max width similar to previous max-w-md */
+        max-width: 448px;
       }
-      /* Heading style */
       h1 {
-        font-size: 1.5rem; /* Equivalent to text-2xl */
+        font-size: 1.5rem;
         font-weight: bold;
-        margin-bottom: 24px; /* Equivalent to mb-6 */
-        color: #333; /* Darker text color */
+        margin-bottom: 24px;
+        color: #333;
       }
-      /* List styling */
       ul {
-        list-style: none; /* Remove default bullet points */
+        list-style: none;
         padding: 0;
         margin: 0;
       }
-      /* List item styling */
       li {
-        margin-bottom: 12px; /* Space between list items */
+        margin-bottom: 12px;
       }
-      /* Link styling */
       a {
-        display: block; /* Make links block-level */
+        display: block;
         width: 100%;
-        padding: 12px 16px; /* Padding inside links */
-        border-radius: 8px; /* Rounded corners for links */
-        text-decoration: none; /* Remove underline */
-        color: white; /* White text */
-        font-weight: 500; /* Medium font weight */
-        transition: background-color 0.15s ease-in-out; /* Smooth transition */
-        box-sizing: border-box; /* Include padding in element's total width */
+        padding: 12px 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+        transition: background-color 0.15s ease-in-out;
+        box-sizing: border-box;
       }
-      /* Specific link background colors and hover effects */
       a.aligned {
         background-color: #3b82f6;
-      } /* Blue */
+      }
       a.aligned:hover {
         background-color: #2563eb;
       }
       a.chart {
         background-color: #22c55e;
-      } /* Green */
+      }
       a.chart:hover {
         background-color: #16a34a;
       }
       a.drawdowns {
         background-color: #eab308;
-      } /* Yellow */
+      }
       a.drawdowns:hover {
         background-color: #ca8a04;
       }
       a.scatter {
         background-color: #a855f7;
-      } /* Purple */
+      }
       a.scatter:hover {
         background-color: #9333ea;
       }
+      .github-icon {
+        margin-top: 24px;
+        display: inline-block;
+      }
+      .github-icon svg {
+        width: 32px;
+        height: 32px;
+        fill: #333;
+        transition: fill 0.2s;
+      }
+      .github-icon:hover svg {
+        fill: #000;
+      }
 
-      /* Ensure container doesn't exceed viewport width on small screens */
       @media (max-width: 480px) {
         .container {
           padding: 24px;
@@ -113,6 +118,25 @@
           <a href="drawdowns.html" class="drawdowns">Drawdowns Table</a>
         </li>
       </ul>
+      <a
+        class="github-icon"
+        href="https://github.com/qqii/spx-info"
+        target="_blank"
+        aria-label="GitHub Repository"
+      >
+        <svg viewBox="0 0 16 16" version="1.1" aria-hidden="true">
+          <path
+            fill-rule="evenodd"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+              0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52
+              0-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95
+              0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09
+              2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87
+              3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013
+              0 0016 8c0-4.42-3.58-8-8-8z"
+          ></path>
+        </svg>
+      </a>
     </div>
   </body>
 </html>
