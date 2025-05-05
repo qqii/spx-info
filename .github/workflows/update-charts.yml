@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: 🛠️ Setup uv and Python
         id: setup-uv
@@ -41,20 +43,10 @@ jobs:
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
 
-          git add docs/
-          # Check if there are changes to commit
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            # Check if last commit was also by github-actions
-            LAST_AUTHOR=$(git log -1 --pretty=format:'%an')
-            if [ "$LAST_AUTHOR" = "github-actions" ]; then
-              echo "Last commit was also by github-actions, amending previous commit"
-              git commit --amend -m "Update charts - $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
-              git push --force
-            else
-              # Use ISO 8601 format for the timestamp (UTC)
-              git commit -m "Update charts - $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
-              git push
-            fi
+          LAST_AUTHOR=$(git log -1 --pretty=format:'%an')
+          if [ "$LAST_AUTHOR" = "github-actions" ]; then
+            git reset HEAD~1
           fi
+
+          git commit -a -m "chore: update charts"
+          git push --force
