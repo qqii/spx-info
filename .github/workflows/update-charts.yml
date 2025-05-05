@@ -34,6 +34,10 @@ jobs:
       - name: 🔄 Run update script
         run: uv run main.py
 
+      - name: ⏱️ Update last-updated timestamp
+        run: |
+          sed -i "s/Last updated: .*/Last updated: $(date -u +'%Y-%m-%dT%H:%M:%SZ')/" docs/index.html
+
       - name: ⚙️ Configure Git
         run: |
           git config --global user.name 'github-actions'
@@ -42,5 +46,10 @@ jobs:
       - name: 💾 Commit and push changes
         run: |
           git add docs/
-          git commit -m "Update charts - $(date '+%Y-%m-%d')"
-          git push
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            # Use ISO 8601 format for the timestamp (UTC)
+            git commit -m "Update charts - $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+            git push
