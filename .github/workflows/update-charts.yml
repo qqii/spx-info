@@ -1,0 +1,46 @@
+name: Update Charts
+
+on:
+  push:
+    branches: [master]
+  schedule:
+    - cron: "30 13 * * 1-5" # 8:30 AM ET (before market open), Monday-Friday
+    - cron: "0 22 * * 1-5" # 5:00 PM ET (after market close), Monday-Friday
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-charts:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup uv and Python
+        id: setup-uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: |
+            **/pyproject.toml
+            **/uv.lock
+            **/.python-version
+
+      - name: 📦 Sync dependencies with uv
+        run: uv sync
+
+      - name: 🔄 Run update script
+        run: uv run main.py
+
+      - name: ⚙️ Configure Git
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+
+      - name: 💾 Commit and push changes
+        run: |
+          git add docs/
+          git commit -m "Update charts - $(date '+%Y-%m-%d')"
+          git push
