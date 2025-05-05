@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SPX Info</title>
+    <style>
+      /* Basic styling for the body */
+      body {
+        font-family: sans-serif; /* Use a default system font */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f0f0f0; /* Light gray background */
+        margin: 0;
+        padding: 16px; /* Add some padding */
+        box-sizing: border-box; /* Include padding in element's total width and height */
+      }
+      /* Container for the content */
+      .container {
+        background-color: #ffffff; /* White background */
+        padding: 32px;
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Simple shadow */
+        text-align: center;
+        width: 100%;
+        max-width: 448px; /* Max width similar to previous max-w-md */
+      }
+      /* Heading style */
+      h1 {
+        font-size: 1.5rem; /* Equivalent to text-2xl */
+        font-weight: bold;
+        margin-bottom: 24px; /* Equivalent to mb-6 */
+        color: #333; /* Darker text color */
+      }
+      /* List styling */
+      ul {
+        list-style: none; /* Remove default bullet points */
+        padding: 0;
+        margin: 0;
+      }
+      /* List item styling */
+      li {
+        margin-bottom: 12px; /* Space between list items */
+      }
+      /* Link styling */
+      a {
+        display: block; /* Make links block-level */
+        width: 100%;
+        padding: 12px 16px; /* Padding inside links */
+        border-radius: 8px; /* Rounded corners for links */
+        text-decoration: none; /* Remove underline */
+        color: white; /* White text */
+        font-weight: 500; /* Medium font weight */
+        transition: background-color 0.15s ease-in-out; /* Smooth transition */
+        box-sizing: border-box; /* Include padding in element's total width */
+      }
+      /* Specific link background colors and hover effects */
+      a.aligned {
+        background-color: #3b82f6;
+      } /* Blue */
+      a.aligned:hover {
+        background-color: #2563eb;
+      }
+      a.chart {
+        background-color: #22c55e;
+      } /* Green */
+      a.chart:hover {
+        background-color: #16a34a;
+      }
+      a.drawdowns {
+        background-color: #eab308;
+      } /* Yellow */
+      a.drawdowns:hover {
+        background-color: #ca8a04;
+      }
+      a.scatter {
+        background-color: #a855f7;
+      } /* Purple */
+      a.scatter:hover {
+        background-color: #9333ea;
+      }
+
+      /* Ensure container doesn't exceed viewport width on small screens */
+      @media (max-width: 480px) {
+        .container {
+          padding: 24px;
+        }
+        h1 {
+          font-size: 1.25rem;
+        }
+        a {
+          padding: 10px 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>S&P 500 Charts</h1>
+      <ul>
+        <li>
+          <a href="aligned.html" class="aligned">Drawdowns Aligned</a>
+        </li>
+        <li>
+          <a href="chart.html" class="chart">Drawdowns Highlighted</a>
+        </li>
+        <li>
+          <a href="scatter.html" class="scatter">Recovery Scatter</a>
+        </li>
+        <li>
+          <a href="drawdowns.html" class="drawdowns">Drawdowns Table</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

@@ -1,11 +1,13 @@
 # spx-info
 
-Investigating the S&P 500.
+Investigating the S&P 500 drawdowns, charts at:
 
-## Instructions
+- https://qqii.github.io/spx-info/index.html
+
+## Getting Started
 
 ```
 uv run sync
 ```
 
-Open [`main.ipynb`](main.ipynb).
+Run [`main.ipynb`](main.ipynb).
