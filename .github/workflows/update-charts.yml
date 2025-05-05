@@ -32,24 +32,29 @@ jobs:
         run: uv sync
 
       - name: 🔄 Run update script
-        run: uv run main.py
-
-      - name: ⏱️ Update last-updated timestamp
         run: |
+          uv run main.py
           sed -i "s/Last updated: .*/Last updated: $(date -u +'%Y-%m-%dT%H:%M:%SZ')/" docs/index.html
 
-      - name: ⚙️ Configure Git
+      - name: 💾 Commit and push changes
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
 
-      - name: 💾 Commit and push changes
-        run: |
           git add docs/
           # Check if there are changes to commit
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            # Use ISO 8601 format for the timestamp (UTC)
-            git commit -m "Update charts - $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
-            git push
+            # Check if last commit was also by github-actions
+            LAST_AUTHOR=$(git log -1 --pretty=format:'%an')
+            if [ "$LAST_AUTHOR" = "github-actions" ]; then
+              echo "Last commit was also by github-actions, amending previous commit"
+              git commit --amend -m "Update charts - $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+              git push --force
+            else
+              # Use ISO 8601 format for the timestamp (UTC)
+              git commit -m "Update charts - $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+              git push
+            fi
+          fi
