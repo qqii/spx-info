@@ -18,6 +18,7 @@ df = yf.download("^GSPC")
 
 df = df.reset_index()  # Use an integer index
 df.columns = df.columns.droplevel(1)  # Remove the second level (ticker)
+df.to_csv(csv_file)
 
 df = df.rename(columns={"Date": "date", "Close": "value"})
 df = df[["date", "value"]]
@@ -147,8 +148,11 @@ fig.update_layout(
 )
 fig.update_annotations(selector=dict(text="Drawdown (%)"), xshift=-70)
 
+historical = drawdowns.iloc[:-1].copy()
+historical = historical.sort_values(by="to_bottom", ascending=False)
+
 for i, drawdown, color in zip(
-    count(0), drawdowns.iloc[:-1].iloc, cycle(px.colors.qualitative.Plotly)
+    count(0), historical.iloc, cycle(px.colors.qualitative.Plotly)
 ):
     mask = (drawdown.start <= df["date"]) & (df["date"] <= drawdown.end)
     period = df[mask].copy()

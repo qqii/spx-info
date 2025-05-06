@@ -33,9 +33,9 @@ jobs:
       - name: 📦 Sync dependencies with uv
         run: uv sync
 
-      - name: 🔄 Run update script
+      - name: 🔄 Update charts and timestamp
         run: |
-          uv run main.py
+          uv run update.py
           sed -i "s/Last updated: .*/Last updated: $(date -u +'%Y-%m-%dT%H:%M:%SZ')/" docs/index.html
 
       - name: 💾 Commit and push changes
