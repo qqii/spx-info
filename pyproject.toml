@@ -16,7 +16,4 @@ dependencies = [
 ]
 
 [dependency-groups]
-dev = [
-    "ipykernel>=6.29.5",
-    "uv>=0.7.2",
-]
+dev = ["ipykernel>=6.29.5", "ruff>=0.14.10", "uv>=0.7.2"]
