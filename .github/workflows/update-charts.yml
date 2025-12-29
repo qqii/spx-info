@@ -8,6 +8,10 @@ on:
     - cron: "0 22 * * 1-5" # 5:00 PM ET (after market close), Monday-Friday
   workflow_dispatch: # Allow manual trigger
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   update-charts:
     runs-on: ubuntu-latest
