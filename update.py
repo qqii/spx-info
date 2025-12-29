@@ -13,7 +13,7 @@ from scipy import stats
 # %%
 # Load S&P 500 data
 csv_file = Path("sp500.csv")
-df = yf.download("^GSPC")
+df = yf.download("^GSPC", period="max")
 
 df = df.reset_index()  # Use an integer index
 df.columns = df.columns.droplevel(1)  # Remove the second level (ticker)
