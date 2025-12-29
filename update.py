@@ -1,15 +1,14 @@
 # %%
+from itertools import count, cycle
 from pathlib import Path
-from itertools import cycle, count
 
-import yfinance as yf
 import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-
-from scipy import stats
+import yfinance as yf
 from plotly.subplots import make_subplots
+from scipy import stats
 
 # %%
 # Load S&P 500 data
@@ -78,7 +77,7 @@ fig.write_html("docs/drawdowns.html")
 
 # %%
 fig = px.scatter(
-    dat.iloc[:-1],
+    dat,
     title="S&P 500 Recovery Time",
     x="Days To Bottom",
     y="Days To Recovery",
@@ -91,7 +90,7 @@ fig.add_trace(
         y=dat["Days To Recovery"].iloc[-1:],
         mode="markers",
         marker=dict(size=5, color="black"),
-        name=f"{dat.iloc[-1]['Start']} (so far)",
+        name=f"{dat.iloc[-1]['Start']} - {dat.iloc[-1]['End']} (most recent)",
     )
 )
 
@@ -148,12 +147,17 @@ fig.update_layout(
 )
 fig.update_annotations(selector=dict(text="Drawdown (%)"), xshift=-70)
 
-historical = drawdowns.iloc[:-1].copy()
+historical = drawdowns.copy()
 historical = historical.sort_values(by="to_bottom", ascending=False)
 
 for i, drawdown, color in zip(
     count(0), historical.iloc, cycle(px.colors.qualitative.Plotly)
 ):
+    # Highlight latest in black
+    is_most_recent = drawdown.start == historical["start"].max()
+    if is_most_recent:
+        color = "black"
+
     mask = (drawdown.start <= df["date"]) & (df["date"] <= drawdown.end)
     period = df[mask].copy()
 
@@ -163,7 +167,7 @@ for i, drawdown, color in zip(
     ]
 
     legend_group = f"drawdown_{i}"
-    trace_name = f"{drawdown.start.date()}, {drawdown.to_bottom.days}d bottom, {drawdown.to_recovery.days}d recovery"
+    trace_name = f"{drawdown.start.date()} - {drawdown.end.date()}, {drawdown.to_bottom.days}d bottom, {drawdown.to_recovery.days}d recovery {'(most recent)' if is_most_recent else ''}"
 
     fig.add_trace(
         go.Scatter(
@@ -191,24 +195,6 @@ for i, drawdown, color in zip(
             visible=True if drawdown.to_recovery.days < 365 * 3 else "legendonly",
         )
     )
-
-
-drawdown = drawdowns.iloc[-1]
-mask = (drawdown.start <= df["date"]) & (df["date"] <= drawdown.end)
-period = df[mask].copy()
-
-period["i"] = (period["date"] - drawdown.start).dt.days
-period["pct"] = (period["value"] - period["value"].iloc[0]) / period["value"].iloc[0]
-
-fig.add_trace(
-    go.Scatter(
-        x=period["i"],
-        y=period["pct"],
-        name=f"{drawdown.start.date()} (so far)",
-        mode="lines",
-        line=dict(width=1, color="black"),
-    )
-)
 
 fig.update_layout(
     updatemenus=[
